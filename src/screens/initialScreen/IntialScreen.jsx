@@ -1,10 +1,13 @@
 import {View, Text} from 'react-native';
 import React from 'react';
+import navigationStrings from '../../navigations/navigationStrings';
 
-export default function IntialScreen() {
+export default function IntialScreen({navigation}) {
   return (
     <View>
-      <Text>IntialScreen</Text>
+      <Text onPress={() => navigation.navigate(navigationStrings.LOGIN)}>
+        IntialScreen
+      </Text>
     </View>
   );
 }

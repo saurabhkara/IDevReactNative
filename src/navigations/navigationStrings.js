@@ -6,4 +6,6 @@ export default {
   PROFILE: 'profile',
   CREATE_POST: 'createPost',
   NOTIFICATION: 'notification',
+  SEARCH: 'search',
+  TAB_ROUTES: 'tabRoutes',
 };
