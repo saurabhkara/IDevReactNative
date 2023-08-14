@@ -1,10 +1,13 @@
-import {View, Text} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import React from 'react';
 import strings from '../../constants/lang';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
+import {updateUser} from '../../redux/reducers/authReducer';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 
 export default function Home() {
   const {user} = useSelector(state => state.auth);
+  const dispatch = useDispatch();
   console.log('redux data', user);
 
   return (
@@ -15,6 +18,17 @@ export default function Home() {
         }}>
         {strings.HOME}
       </Text>
+      <TouchableOpacity
+        onPress={() => dispatch(updateUser('Saurabh K'))}
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: 'cyan',
+          borderRadius: 15,
+        }}>
+        <Text>update user</Text>
+      </TouchableOpacity>
+      <AntDesign name="forward" size={24} color="black" />
     </View>
   );
 }
