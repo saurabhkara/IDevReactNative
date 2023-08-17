@@ -1,4 +1,15 @@
 export default {
   HOME: 'होम',
   PROFILE: 'प्रोफ़ाइल',
+  BY_CLICKING_LOG_IN: 'By clicking "Log In" You agree with our',
+  TERMS: 'Terms',
+  LEARN: 'Learn how we process data in our ',
+  PRIVACY_POLICY: 'Privacy policy',
+  LOGIN_WITH_PHONE: 'Login With Phone Number',
+  OR: 'or',
+  LOGIN_WITH_GOOGLE: 'Login With Google',
+  LOGIN_WITH_FACEBOOK: 'Login With Facebook',
+  LOGIN_WITH_APPLE: 'Login With Apple',
+  NEW_HERE: 'New here',
+  SIGN_UP: 'Signup',
 };

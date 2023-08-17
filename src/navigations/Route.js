@@ -9,8 +9,11 @@ const Stack = createNativeStackNavigator();
 export default function () {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        {false ? AuthStack(Stack) : MainStack(Stack)}
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}>
+        {true ? AuthStack(Stack) : MainStack(Stack)}
       </Stack.Navigator>
     </NavigationContainer>
   );

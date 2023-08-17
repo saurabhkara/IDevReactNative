@@ -8,7 +8,6 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 export default function Home() {
   const {user} = useSelector(state => state.auth);
   const dispatch = useDispatch();
-  console.log('redux data', user);
 
   return (
     <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
