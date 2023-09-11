@@ -1,6 +1,11 @@
 import {Text, StyleSheet, TouchableOpacity, Image, View} from 'react-native';
 import React from 'react';
 import fontFamily from '../constants/fontFamily';
+import {
+  moderateScale,
+  moderateScaleVertical,
+  textScale,
+} from '../styles/responsiveSize';
 
 export default function ButtonComp({
   label,
@@ -25,15 +30,15 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: 'red',
     alignItems: 'center',
-    height: 52,
+    height: moderateScaleVertical(52),
     justifyContent: 'space-between',
     flexDirection: 'row',
-    borderRadius: 8,
-    paddingHorizontal: 16,
+    borderRadius: moderateScale(8),
+    paddingHorizontal: moderateScale(16),
   },
   text: {
     fontFamily: fontFamily.regular,
     color: 'white',
-    fontSize: 16,
+    fontSize: textScale(16),
   },
 });

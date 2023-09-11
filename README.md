@@ -8,6 +8,9 @@ Functionality or features added int this application
 - Redux toolkit with thunk
 - Implementat of Auth stack and Main stack based on Token
 
+- Assets source
+  https://github.com/gulsher7/react_mern
+
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
 # Getting Started

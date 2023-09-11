@@ -35,6 +35,7 @@ target 'IDevProject' do
     :path => config[:reactNativePath],
     # Hermes is now enabled by default. Disable by setting this flag to false.
     :hermes_enabled => flags[:hermes_enabled],
+    # :hermes_enabled => false,
     :fabric_enabled => flags[:fabric_enabled],
     # Enables Flipper.
     #
