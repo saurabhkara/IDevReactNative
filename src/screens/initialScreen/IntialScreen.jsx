@@ -1,12 +1,4 @@
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet,
-  Alert,
-  PixelRatio,
-  Dimensions,
-} from 'react-native';
+import {View, Text, Image, StyleSheet, Alert} from 'react-native';
 import React from 'react';
 import navigationStrings from '../../navigations/navigationStrings';
 import WrapperComponent from '../../components/WrapperComponent';
@@ -19,8 +11,13 @@ import {
   moderateScaleVertical,
   textScale,
 } from '../../styles/responsiveSize';
+import TextComp from '../../components/TextComp';
+import {useSelector} from 'react-redux';
+import colors from '../../constants/colors';
+import ModalComp from '../../components/ModalComp';
 
 export default function IntialScreen({navigation}) {
+  const {isDark} = useSelector(state => state.appSettings);
   const handleTermsAndPolicy = (type = 1) => {
     if (type === 1) {
       Alert.alert('Terms');
@@ -35,30 +32,42 @@ export default function IntialScreen({navigation}) {
           <Image style={styles.logoImage} source={imagePath.logo} />
         </View>
         <View style={styles.subContainer}>
-          <Text style={{...styles.textStyle, ...styles.privacyPolicyText}}>
-            {lang.BY_CLICKING_LOG_IN}{' '}
-            <Text
-              onPress={() => handleTermsAndPolicy(1)}
-              style={styles.termsPolicy}>
-              {lang.TERMS}
-            </Text>
-            {lang.LEARN}
-            <Text
-              onPress={() => handleTermsAndPolicy(1)}
-              style={styles.termsPolicy}>
-              {lang.PRIVACY_POLICY}
-            </Text>
-          </Text>
+          <TextComp
+            text={lang.BY_CLICKING_LOG_IN}
+            style={{
+              textAlign: 'center',
+              marginBottom: moderateScaleVertical(40),
+            }}>
+            <>
+              <Text
+                onPress={() => handleTermsAndPolicy(1)}
+                style={styles.termsPolicy}>
+                {lang.TERMS}
+              </Text>
+              {lang.LEARN}
+              <Text
+                onPress={() => handleTermsAndPolicy(1)}
+                style={styles.termsPolicy}>
+                {lang.PRIVACY_POLICY}
+              </Text>
+            </>
+          </TextComp>
           <ButtonComp
             label={lang.LOGIN_WITH_PHONE}
             onPress={() => navigation.navigate(navigationStrings.LOGIN)}
           />
-          <Text style={{...styles.textStyle, ...styles.orStyle}}>
-            {lang.OR}
-          </Text>
+          <TextComp
+            text={lang.OR}
+            style={{
+              ...styles.textStyle,
+              marginVertical: moderateScaleVertical(16),
+            }}
+          />
           <ButtonComp
             label={lang.LOGIN_WITH_GOOGLE}
-            buttonStyle={{backgroundColor: 'white'}}
+            buttonStyle={{
+              backgroundColor: isDark ? colors.whiteColor : colors.gray5,
+            }}
             textStyle={{color: 'black'}}
             leftImg={imagePath.ic_google}
           />
@@ -66,27 +75,41 @@ export default function IntialScreen({navigation}) {
             label={lang.LOGIN_WITH_FACEBOOK}
             buttonStyle={{
               marginVertical: moderateScaleVertical(16),
-              backgroundColor: 'white',
+              backgroundColor: isDark ? colors.whiteColor : colors.gray5,
             }}
             textStyle={{color: 'black'}}
             leftImg={imagePath.ic_facebook}
           />
           <ButtonComp
             label={lang.LOGIN_WITH_APPLE}
-            buttonStyle={{backgroundColor: 'white'}}
+            buttonStyle={{
+              backgroundColor: isDark ? colors.whiteColor : colors.gray5,
+            }}
             textStyle={{color: 'black'}}
             leftImg={imagePath.ic_apple}
           />
-          <Text
+          <TextComp
+            text={lang.NEW_HERE}
             onPress={() => navigation.navigate(navigationStrings.SIGNUP)}
             style={{
-              ...styles.textStyle,
+              textAlign: 'center',
               marginVertical: moderateScaleVertical(16),
             }}>
-            {lang.NEW_HERE}? <Text style={{color: 'blue'}}>{lang.SIGN_UP}</Text>
-          </Text>
+            <Text style={{color: 'blue'}}>{lang.SIGN_UP}</Text>
+          </TextComp>
         </View>
       </View>
+      <ModalComp
+        isVisible={true}
+        style={{
+          // backgroundColor: 'white',
+          margin: 0,
+          justifyContent: 'flex-end',
+        }}>
+        <View style={{width: '100%', backgroundColor: 'white'}}>
+          <Text>I am the modal content!</Text>
+        </View>
+      </ModalComp>
     </WrapperComponent>
   );
 }
@@ -105,10 +128,6 @@ const styles = StyleSheet.create({
     height: moderateScale(150),
     borderRadius: moderateScale(150 / 2),
   },
-  privacyPolicyText: {
-    marginBottom: moderateScaleVertical(40),
-    opacity: 0.5,
-  },
   textStyle: {
     fontFamily: fontFamily.regular,
     color: '#ffffff',
@@ -121,8 +140,5 @@ const styles = StyleSheet.create({
   },
   termsPolicy: {
     textTransform: 'capitalize',
-  },
-  orStyle: {
-    marginVertical: moderateScaleVertical(16),
   },
 });

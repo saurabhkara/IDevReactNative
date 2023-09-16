@@ -12,8 +12,11 @@ import colors from '../../constants/colors';
 import fontFamily from '../../constants/fontFamily';
 import ButtonComp from '../../components/ButtonComp';
 import HeaderComponent from '../../components/HeaderComponent';
+import {useSelector} from 'react-redux';
+import TextComp from '../../components/TextComp';
 
 export default function Signup({navigation}) {
+  const {isDark} = useSelector(state => state.appSettings);
   const [userName, setUserName] = useState('');
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
@@ -26,8 +29,8 @@ export default function Signup({navigation}) {
       <HeaderComponent onPress={() => navigation.goBack()} />
       <View style={styles.container}>
         <View style={{flex: 0.8}}>
-          <Text style={styles.headerStyle}>{strings.CREATE_ACCOUNT}</Text>
-          <Text style={styles.subHeader}>{strings.CREATE_AN_ACCOUNT}</Text>
+          <TextComp text={strings.CREATE_ACCOUNT} style={styles.headerStyle} />
+          <TextComp text={strings.CREATE_AN_ACCOUNT} style={styles.subHeader} />
           <TextInputComp
             placeholder={strings.USERNAME}
             value={userName}
@@ -47,9 +50,9 @@ export default function Signup({navigation}) {
             placeholder={strings.PASSWORD}
             value={password}
             onChangeText={text => setPassword(text)}
-            secureTextEntry={secureText}
+            secureTextEntry={true}
             onPressSecure={() => setSecureText(!secureText)}
-            secureText={secureText ? strings.SHOW : strings.HIDE}
+            // secureText={secureText ? strings.SHOW : strings.HIDE}
           />
           <TextInputComp
             placeholder={strings.CONFIRM_PASSWORD}
@@ -65,7 +68,10 @@ export default function Signup({navigation}) {
             flex: 0.2,
             justifyContent: 'flex-end',
           }}>
-          <ButtonComp label={'Sign Up'} />
+          <ButtonComp
+            label={'Sign Up'}
+            style={{backgroundColor: isDark ? colors.whiteColor : colors.gray5}}
+          />
         </View>
       </View>
     </WrapperComponent>

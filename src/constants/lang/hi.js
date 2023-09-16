@@ -10,7 +10,7 @@ export default {
   LOGIN_WITH_GOOGLE: 'Login With Google',
   LOGIN_WITH_FACEBOOK: 'Login With Facebook',
   LOGIN_WITH_APPLE: 'Login With Apple',
-  NEW_HERE: 'New here',
+  NEW_HERE: 'New here ?',
   SIGN_UP: 'Signup',
   WELCOME_BACK: 'Welcome Back!',
   WE_ARE_HAPPY_TO_SEE: 'We are Happy to See. You can login to continue.',

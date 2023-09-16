@@ -12,8 +12,11 @@ import colors from '../../constants/colors';
 import fontFamily from '../../constants/fontFamily';
 import ButtonComp from '../../components/ButtonComp';
 import HeaderComponent from '../../components/HeaderComponent';
+import TextComp from '../../components/TextComp';
+import {useSelector} from 'react-redux';
 
 export default function Login({navigation}) {
+  const {isDark} = useSelector(state => state.appSettings);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [secureText, setSecureText] = useState(true);
@@ -22,8 +25,11 @@ export default function Login({navigation}) {
       <HeaderComponent onPress={() => navigation.goBack()} />
       <View style={styles.container}>
         <View style={{flex: 0.8}}>
-          <Text style={styles.headerStyle}>{strings.WELCOME_BACK}</Text>
-          <Text style={styles.subHeader}>{strings.WE_ARE_HAPPY_TO_SEE}</Text>
+          <TextComp style={styles.headerStyle} text={strings.WELCOME_BACK} />
+          <TextComp
+            style={styles.subHeader}
+            text={strings.WE_ARE_HAPPY_TO_SEE}
+          />
           <TextInputComp
             placeholder={strings.EMAIL}
             value={email}
