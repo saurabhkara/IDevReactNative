@@ -1,5 +1,12 @@
-import {View, Text, Image, StyleSheet, Alert} from 'react-native';
-import React from 'react';
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  Alert,
+  TouchableOpacity,
+} from 'react-native';
+import React, {useState} from 'react';
 import navigationStrings from '../../navigations/navigationStrings';
 import WrapperComponent from '../../components/WrapperComponent';
 import lang from '../../constants/lang';
@@ -7,17 +14,22 @@ import fontFamily from '../../constants/fontFamily';
 import ButtonComp from '../../components/ButtonComp';
 import imagePath from '../../constants/imagePath';
 import {
+  height,
   moderateScale,
   moderateScaleVertical,
   textScale,
 } from '../../styles/responsiveSize';
 import TextComp from '../../components/TextComp';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import colors from '../../constants/colors';
 import ModalComp from '../../components/ModalComp';
+import {changeLanguage} from '../../redux/actions/appSettingAction';
 
 export default function IntialScreen({navigation}) {
-  const {isDark} = useSelector(state => state.appSettings);
+  const dispatch = useDispatch();
+  const {isDark, language} = useSelector(state => state.appSettings);
+  const [isVisible, setIsVisible] = useState(false);
+
   const handleTermsAndPolicy = (type = 1) => {
     if (type === 1) {
       Alert.alert('Terms');
@@ -25,9 +37,26 @@ export default function IntialScreen({navigation}) {
       Alert.alert('Policy');
     }
   };
+
+  const onPressLang = lan => {
+    dispatch(changeLanguage(lan));
+    setIsVisible(false);
+  };
   return (
     <WrapperComponent>
       <View style={styles.container}>
+        <TouchableOpacity
+          onPress={() => setIsVisible(true)}
+          activeOpacity={0.6}
+          style={{
+            ...styles.circularButton,
+            backgroundColor: isDark ? colors.whiteColor : colors.gray3,
+          }}>
+          <TextComp
+            text={language}
+            style={{color: isDark ? 'black' : 'white'}}
+          />
+        </TouchableOpacity>
         <View style={styles.logoContainer}>
           <Image style={styles.logoImage} source={imagePath.logo} />
         </View>
@@ -100,14 +129,50 @@ export default function IntialScreen({navigation}) {
         </View>
       </View>
       <ModalComp
-        isVisible={true}
+        isVisible={isVisible}
+        onBackdropPress={() => setIsVisible(false)}
         style={{
-          // backgroundColor: 'white',
           margin: 0,
           justifyContent: 'flex-end',
         }}>
-        <View style={{width: '100%', backgroundColor: 'white'}}>
-          <Text>I am the modal content!</Text>
+        <View
+          style={{
+            width: '100%',
+            backgroundColor: 'white',
+            minHeight: moderateScaleVertical(height / 4),
+            padding: moderateScale(16),
+            borderTopLeftRadius: moderateScale(8),
+            borderTopRightRadius: moderateScale(8),
+          }}>
+          <Text
+            style={{
+              fontSize: textScale(16),
+              marginBottom: moderateScaleVertical(10),
+            }}>
+            Choose Language
+          </Text>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={() => onPressLang('hi')}>
+            <Text
+              style={{
+                ...styles.langOption,
+                color: language === 'hi' ? 'red' : 'black',
+              }}>
+              Hindi
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.7}
+            onPress={() => onPressLang('en')}>
+            <Text
+              style={{
+                ...styles.langOption,
+                color: language === 'en' ? 'red' : 'black',
+              }}>
+              English
+            </Text>
+          </TouchableOpacity>
         </View>
       </ModalComp>
     </WrapperComponent>
@@ -120,7 +185,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   logoContainer: {
-    flex: 0.3,
+    flex: 0.2,
     justifyContent: 'center',
   },
   logoImage: {
@@ -140,5 +205,18 @@ const styles = StyleSheet.create({
   },
   termsPolicy: {
     textTransform: 'capitalize',
+  },
+  circularButton: {
+    height: moderateScaleVertical(50),
+    width: moderateScale(50),
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'flex-end',
+    borderRadius: moderateScale(25),
+  },
+  langOption: {
+    marginBottom: moderateScaleVertical(10),
+    fontWeight: 'bold',
+    fontSize: textScale(14),
   },
 });

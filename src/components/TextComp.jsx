@@ -13,8 +13,8 @@ export default function TextComp({text = '', style = {}, children, onPress}) {
       onPress={onPress}
       style={{
         ...styles.text,
-        ...style,
         color: isDark ? colors.whiteColor : colors.blackColor,
+        ...style,
       }}>
       {text}
       {children}

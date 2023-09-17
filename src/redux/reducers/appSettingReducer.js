@@ -3,12 +3,12 @@ import {createSlice} from '@reduxjs/toolkit';
 const appSetting = createSlice({
   name: 'appSetting',
   initialState: {
-    lang: 'en',
-    isDark: false,
+    language: 'en',
+    isDark: true,
   },
   reducers: {
-    setLang: (state, action) => {
-      state.lang = action.payload;
+    setLanguage: (state, action) => {
+      state.language = action.payload;
     },
     changeTheme: (state, action) => {
       state.isDark = action.payload;
@@ -16,5 +16,5 @@ const appSetting = createSlice({
   },
 });
 
-export const {setLang, changeTheme} = appSetting.actions;
+export const {setLanguage, changeTheme} = appSetting.actions;
 export default appSetting.reducer;

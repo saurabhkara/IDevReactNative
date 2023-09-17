@@ -1,11 +1,13 @@
-import store from '../store';
-import {changeTheme, setLang} from '../reducers/appSettingReducer';
-const {dispatch} = store;
+// import store from '../store';
+import {changeTheme, setLanguage} from '../reducers/appSettingReducer';
+// const {dispatch} = store;
 
 export const changeLanguage = data => {
-  dispatch(setLang(data));
+  return dispatch => dispatch(setLanguage(data));
 };
 
 export const changeAppTheme = data => {
-  dispatch(changeTheme(data));
+  return function (dispatch) {
+    return dispatch(changeTheme(data));
+  };
 };
