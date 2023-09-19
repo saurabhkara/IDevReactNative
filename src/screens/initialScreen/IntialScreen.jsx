@@ -23,13 +23,17 @@ import TextComp from '../../components/TextComp';
 import {useSelector, useDispatch} from 'react-redux';
 import colors from '../../constants/colors';
 import ModalComp from '../../components/ModalComp';
-import {changeLanguage} from '../../redux/actions/appSettingAction';
+import {
+  changeAppTheme,
+  changeLanguage,
+} from '../../redux/actions/appSettingAction';
+import SelectionComponent from '../../components/SelectionComponent';
 
 export default function IntialScreen({navigation}) {
   const dispatch = useDispatch();
   const {isDark, language} = useSelector(state => state.appSettings);
   const [isVisible, setIsVisible] = useState(false);
-
+  console.log('flipper console');
   const handleTermsAndPolicy = (type = 1) => {
     if (type === 1) {
       Alert.alert('Terms');
@@ -40,6 +44,10 @@ export default function IntialScreen({navigation}) {
 
   const onPressLang = lan => {
     dispatch(changeLanguage(lan));
+    setIsVisible(false);
+  };
+  const onHandleTheme = theme => {
+    dispatch(changeAppTheme(theme));
     setIsVisible(false);
   };
   return (
@@ -151,28 +159,37 @@ export default function IntialScreen({navigation}) {
             }}>
             Choose Language
           </Text>
-          <TouchableOpacity
-            activeOpacity={0.7}
-            onPress={() => onPressLang('hi')}>
-            <Text
-              style={{
-                ...styles.langOption,
-                color: language === 'hi' ? 'red' : 'black',
-              }}>
-              Hindi
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            activeOpacity={0.7}
-            onPress={() => onPressLang('en')}>
-            <Text
-              style={{
-                ...styles.langOption,
-                color: language === 'en' ? 'red' : 'black',
-              }}>
-              English
-            </Text>
-          </TouchableOpacity>
+          <SelectionComponent
+            onPress={() => onPressLang('hi')}
+            selected={language}
+            label={'Hindi'}
+            value={'hi'}
+          />
+          <SelectionComponent
+            onPress={() => onPressLang('en')}
+            selected={language}
+            label={'English'}
+            value={'en'}
+          />
+          <Text
+            style={{
+              fontSize: textScale(16),
+              marginBottom: moderateScaleVertical(10),
+            }}>
+            Select your favorite theme
+          </Text>
+          <SelectionComponent
+            label={'Light'}
+            value="light"
+            selected={isDark ? 'dark' : 'light'}
+            onPress={() => onHandleTheme(false)}
+          />
+          <SelectionComponent
+            label={'Dark'}
+            value="dark"
+            selected={isDark ? 'dark' : 'light'}
+            onPress={() => onHandleTheme(true)}
+          />
         </View>
       </ModalComp>
     </WrapperComponent>
@@ -213,10 +230,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'flex-end',
     borderRadius: moderateScale(25),
-  },
-  langOption: {
-    marginBottom: moderateScaleVertical(10),
-    fontWeight: 'bold',
-    fontSize: textScale(14),
   },
 });
