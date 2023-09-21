@@ -6,7 +6,7 @@ import {
   Alert,
   TouchableOpacity,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import navigationStrings from '../../navigations/navigationStrings';
 import WrapperComponent from '../../components/WrapperComponent';
 import lang from '../../constants/lang';
@@ -28,12 +28,15 @@ import {
   changeLanguage,
 } from '../../redux/actions/appSettingAction';
 import SelectionComponent from '../../components/SelectionComponent';
+import strings from '../../constants/lang';
+import RNRestart from 'react-native-restart';
+import {storeData} from '../../util/helperFunction';
 
 export default function IntialScreen({navigation}) {
   const dispatch = useDispatch();
   const {isDark, language} = useSelector(state => state.appSettings);
   const [isVisible, setIsVisible] = useState(false);
-  console.log('flipper console');
+
   const handleTermsAndPolicy = (type = 1) => {
     if (type === 1) {
       Alert.alert('Terms');
@@ -43,13 +46,22 @@ export default function IntialScreen({navigation}) {
   };
 
   const onPressLang = lan => {
-    dispatch(changeLanguage(lan));
-    setIsVisible(false);
+    storeData('lang', {lan: lan}).then(() => {
+      setIsVisible(false);
+      changeLanguage(lan);
+      strings.setLanguage(lan);
+      RNRestart.restart();
+    });
   };
+
   const onHandleTheme = theme => {
-    dispatch(changeAppTheme(theme));
-    setIsVisible(false);
+    storeData('theme', {theme: theme}).then(() => {
+      setIsVisible(false);
+      changeAppTheme(theme);
+      RNRestart.restart();
+    });
   };
+
   return (
     <WrapperComponent>
       <View style={styles.container}>

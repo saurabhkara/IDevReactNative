@@ -25,9 +25,12 @@ export default function Login({navigation}) {
       <HeaderComponent onPress={() => navigation.goBack()} />
       <View style={styles.container}>
         <View style={{flex: 0.8}}>
-          <TextComp style={styles.headerStyle} text={strings.WELCOME_BACK} />
           <TextComp
-            style={styles.subHeader}
+            style={{...styles.headerStyle, color: isDark ? 'white' : 'black'}}
+            text={strings.WELCOME_BACK}
+          />
+          <TextComp
+            style={{...styles.subHeader, color: isDark ? 'white' : 'black'}}
             text={strings.WE_ARE_HAPPY_TO_SEE}
           />
           <TextInputComp
@@ -63,13 +66,13 @@ const styles = StyleSheet.create({
   },
   headerStyle: {
     fontSize: textScale(24),
-    color: colors.whiteColor,
+    // color: colors.whiteColor,
     fontFamily: fontFamily.regular,
     // marginTop: moderateScaleVertical(15),
     marginBottom: moderateScaleVertical(10),
   },
   subHeader: {
-    color: colors.whiteColor,
+    // color: colors.whiteColor,
     marginBottom: moderateScaleVertical(40),
   },
   forget: {

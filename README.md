@@ -7,6 +7,7 @@ Functionality or features added int this application
 - Localization
 - Redux toolkit with thunk
 - Implementat of Auth stack and Main stack based on Token
+- Dark and Light mode
 
 - Assets source
   https://github.com/gulsher7/react_mern
