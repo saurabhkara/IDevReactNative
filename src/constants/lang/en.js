@@ -26,4 +26,6 @@ export default {
   CONFIRM_PASSWORD: 'Confirm Password',
   CREATE_ACCOUNT: 'Create new account',
   CREATE_AN_ACCOUNT: 'Create an account so can continue',
+  ENTER_THE_4_DIGIT: 'Enter the 4-Digit code sent to you at ',
+  EDIT_YOUR_MOBILE: 'Edit ',
 };

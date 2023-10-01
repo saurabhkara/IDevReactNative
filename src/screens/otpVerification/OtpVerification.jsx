@@ -1,14 +1,14 @@
 import {
   View,
-  Text,
   StyleSheet,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Platform,
   Keyboard,
   StatusBar,
+  Text,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import WrapperComponent from '../../components/WrapperComponent';
 import {
   moderateScale,
@@ -16,19 +16,22 @@ import {
   textScale,
 } from '../../styles/responsiveSize';
 import strings from '../../constants/lang';
-import TextInputComp from '../../components/TextInputComp';
 import colors from '../../constants/colors';
 import fontFamily from '../../constants/fontFamily';
 import ButtonComp from '../../components/ButtonComp';
 import HeaderComponent from '../../components/HeaderComponent';
 import TextComp from '../../components/TextComp';
 import {useSelector} from 'react-redux';
+import OTPTextView from 'react-native-otp-textinput';
 
 export default function Login({navigation}) {
   const {isDark} = useSelector(state => state.appSettings);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [secureText, setSecureText] = useState(true);
+  const [otpInput, setOtpInput] = useState('');
+
+  const input = useRef(null);
+  const handleCellTextChange = async (text, i) => {
+    console.log(text, i);
+  };
   return (
     <WrapperComponent>
       <HeaderComponent onPress={() => navigation.goBack()} />
@@ -48,34 +51,33 @@ export default function Login({navigation}) {
                   ...styles.headerStyle,
                   color: isDark ? 'white' : 'black',
                 }}
-                text={strings.WELCOME_BACK}
+                text={strings.ENTER_THE_4_DIGIT + `email@email.com`}
               />
               <TextComp
-                style={{...styles.subHeader, color: isDark ? 'white' : 'black'}}
-                text={strings.WE_ARE_HAPPY_TO_SEE}
+                style={styles.subHeader}
+                text={`Email ` + strings.EDIT_YOUR_MOBILE}
+                onPress={() => navigation.goBack()}
               />
-              <TextInputComp
-                placeholder={strings.EMAIL}
-                value={email}
-                onChangeText={text => setEmail(text)}
+              <OTPTextView
+                ref={input}
+                textInputStyle={styles.textInputContainer}
+                handleTextChange={setOtpInput}
+                handleCellTextChange={handleCellTextChange}
+                inputCount={4}
+                tintColor={colors.blueColor}
+                keyboardType="numeric"
+                autoFocus
               />
-              <TextInputComp
-                placeholder={strings.PASSWORD}
-                value={password}
-                onChangeText={text => setPassword(text)}
-                secureTextEntry={secureText}
-                onPressSecure={() => setSecureText(!secureText)}
-                secureText={secureText ? strings.SHOW : strings.HIDE}
-              />
-              <Text style={styles.forget}>{strings.FORGOT_PASSWORD}</Text>
             </View>
             <View
-              style={{
-                flex: 0.2,
-                justifyContent: 'flex-end',
-                marginBottom: moderateScale(12),
-              }}>
-              <ButtonComp label={'Login'} />
+              style={{justifyContent: 'flex-end', flex: 0.2, marginBottom: 20}}>
+              <TextComp
+                text="Resend in "
+                onPress={() => console.log('Resend')}
+                style={{color: colors.blueColor, marginBottom: 20}}>
+                <Text>03</Text>
+              </TextComp>
+              <ButtonComp label={'VERIFY'} />
             </View>
           </View>
         </TouchableWithoutFeedback>
@@ -90,17 +92,18 @@ const styles = StyleSheet.create({
   },
   headerStyle: {
     fontSize: textScale(24),
-    // color: colors.whiteColor,
     fontFamily: fontFamily.regular,
-    // marginTop: moderateScaleVertical(15),
     marginBottom: moderateScaleVertical(10),
   },
   subHeader: {
-    // color: colors.whiteColor,
     marginBottom: moderateScaleVertical(40),
-  },
-  forget: {
-    alignSelf: 'flex-end',
+    fontSize: textScale(18),
     color: colors.blueColor,
+  },
+  textInputContainer: {
+    borderColor: colors.whiteColor,
+    borderWidth: 0.2,
+    borderRadius: 8,
+    color: colors.whiteColor,
   },
 });

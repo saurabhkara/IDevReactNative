@@ -8,4 +8,5 @@ export default {
   NOTIFICATION: 'notification',
   SEARCH: 'search',
   TAB_ROUTES: 'tabRoutes',
+  OTP_VERIFICATION: 'otpVerification',
 };

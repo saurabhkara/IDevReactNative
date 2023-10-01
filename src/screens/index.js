@@ -6,3 +6,4 @@ export {default as SignUp} from './signUp/Signup.jsx';
 export {default as Notification} from './notification/Notification.jsx';
 export {default as Profile} from './profile/Profile.jsx';
 export {default as Search} from './search/Search.jsx';
+export {default as OtpVerification} from './otpVerification/OtpVerification.jsx';

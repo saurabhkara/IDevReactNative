@@ -27,4 +27,6 @@ export default {
   CONFIRM_PASSWORD: 'पासवर्ड की पुष्टि',
   CREATE_ACCOUNT: 'नया खाता बनाएँ',
   CREATE_AN_ACCOUNT: 'नया खाता बनाएं',
+  ENTER_THE_4_DIGIT: 'भेजे गए चार अंकों का कोड दर्ज करें ',
+  EDIT_YOUR_MOBILE: 'संपादित करें',
 };

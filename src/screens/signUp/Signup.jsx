@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet, TextInput} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import React, {useState} from 'react';
 import WrapperComponent from '../../components/WrapperComponent';
 import {
@@ -14,6 +14,8 @@ import ButtonComp from '../../components/ButtonComp';
 import HeaderComponent from '../../components/HeaderComponent';
 import {useSelector} from 'react-redux';
 import TextComp from '../../components/TextComp';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import navigationStrings from '../../navigations/navigationStrings';
 
 export default function Signup({navigation}) {
   const {isDark} = useSelector(state => state.appSettings);
@@ -24,10 +26,13 @@ export default function Signup({navigation}) {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [secureText, setSecureText] = useState(true);
 
+  const onHandleSignUp = () => {
+    navigation.navigate(navigationStrings.OTP_VERIFICATION);
+  };
   return (
     <WrapperComponent>
       <HeaderComponent onPress={() => navigation.goBack()} />
-      <View style={styles.container}>
+      <KeyboardAwareScrollView style={styles.container}>
         <View style={{flex: 0.8}}>
           <TextComp text={strings.CREATE_ACCOUNT} style={styles.headerStyle} />
           <TextComp text={strings.CREATE_AN_ACCOUNT} style={styles.subHeader} />
@@ -67,13 +72,15 @@ export default function Signup({navigation}) {
           style={{
             flex: 0.2,
             justifyContent: 'flex-end',
+            marginBottom: moderateScaleVertical(16),
           }}>
           <ButtonComp
             label={'Sign Up'}
             style={{backgroundColor: isDark ? colors.whiteColor : colors.gray5}}
+            onPress={onHandleSignUp}
           />
         </View>
-      </View>
+      </KeyboardAwareScrollView>
     </WrapperComponent>
   );
 }
