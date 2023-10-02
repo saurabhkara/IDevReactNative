@@ -28,4 +28,6 @@ export default {
   CREATE_AN_ACCOUNT: 'Create an account so can continue',
   ENTER_THE_4_DIGIT: 'Enter the 4-Digit code sent to you at ',
   EDIT_YOUR_MOBILE: 'Edit ',
+  RESEND_IN: 'ओटीपी पुनः भेजें ',
+  RESEND_OTP: 'ओटीपी पुनः भेजें',
 };

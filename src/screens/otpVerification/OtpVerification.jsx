@@ -8,7 +8,7 @@ import {
   StatusBar,
   Text,
 } from 'react-native';
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import WrapperComponent from '../../components/WrapperComponent';
 import {
   moderateScale,
@@ -27,11 +27,26 @@ import OTPTextView from 'react-native-otp-textinput';
 export default function Login({navigation}) {
   const {isDark} = useSelector(state => state.appSettings);
   const [otpInput, setOtpInput] = useState('');
+  const [timer, setTimer] = useState(60);
 
   const input = useRef(null);
   const handleCellTextChange = async (text, i) => {
     console.log(text, i);
   };
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (timer > 0) {
+        console.log('Use effect');
+        setTimer(timer - 1);
+      }
+    }, 1000);
+    return () => {
+      if (timeout) {
+        clearTimeout(timeout);
+      }
+    };
+  }, [timer]);
+
   return (
     <WrapperComponent>
       <HeaderComponent onPress={() => navigation.goBack()} />
@@ -71,12 +86,19 @@ export default function Login({navigation}) {
             </View>
             <View
               style={{justifyContent: 'flex-end', flex: 0.2, marginBottom: 20}}>
-              <TextComp
-                text="Resend in "
-                onPress={() => console.log('Resend')}
-                style={{color: colors.blueColor, marginBottom: 20}}>
-                <Text>03</Text>
-              </TextComp>
+              {timer > 0 ? (
+                <TextComp
+                  text={strings.RESEND_IN}
+                  style={{color: colors.blueColor, marginBottom: 20}}>
+                  <Text>{timer}</Text>
+                </TextComp>
+              ) : (
+                <TextComp
+                  text={strings.RESEND_OTP}
+                  onPress={() => console.log('Resend')}
+                  style={{color: colors.blueColor, marginBottom: 20}}
+                />
+              )}
               <ButtonComp label={'VERIFY'} />
             </View>
           </View>

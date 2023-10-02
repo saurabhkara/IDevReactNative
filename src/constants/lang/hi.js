@@ -29,4 +29,6 @@ export default {
   CREATE_AN_ACCOUNT: 'नया खाता बनाएं',
   ENTER_THE_4_DIGIT: 'भेजे गए चार अंकों का कोड दर्ज करें ',
   EDIT_YOUR_MOBILE: 'संपादित करें',
+  RESEND_IN: 'Resend in ',
+  RESEND_OTP: 'Resend OTP',
 };
